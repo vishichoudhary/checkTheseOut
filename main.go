@@ -9,6 +9,7 @@ import (
 
 	"doubtnut.com/checkTheseOut/common"
 	"doubtnut.com/checkTheseOut/config"
+	"github.com/jung-kurt/gofpdf"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -25,6 +26,20 @@ func init() {
 	log.SetLevel(conf.SetLogLevel())
 }
 
+func toPdf(userID common.UserID) {
+	var filename string
+	filename = "By_" + string(userID) + "_at_" + time.Now().Format("2006-01-02 15:04:05") + ".pdf"
+
+	var pdf = gofpdf.New("P", "mm", "A4", "")
+	pdf.AddPage()
+	pdf.SetFont("Arial", "B", 16)
+
+	for i := 0; i < len(userData[userID]); i++ {
+		pdf.CellFormat(190, 7, "Question "+": "+string(userData[userID][i]), "0", i+1, "AL", false, 0, "")
+	}
+	log.Info(pdf.OutputFileAndClose(filename))
+}
+
 func inactivityStopWatch(userID common.UserID) {
 	var timeout = time.Duration(conf.Functional.InactivityTimeInSec) * time.Second
 	var timer = time.NewTimer(timeout)
@@ -32,13 +47,15 @@ func inactivityStopWatch(userID common.UserID) {
 
 	for alive := true; alive; {
 		select {
+
 		case <-resetTimer:
 			log.Info("Timer of user ", userID, " has been reset")
 			timer.Reset(timeout)
 		case <-timer.C:
 			alive = false
 			delete(sessions, userID)
-			log.Info(userData[userID])
+			go toPdf(userID)
+
 		}
 	}
 }
