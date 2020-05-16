@@ -37,7 +37,7 @@ func toPdf(userID common.UserID) {
 	for i := 0; i < len(userData[userID]); i++ {
 		pdf.CellFormat(190, 7, "Question "+": "+string(userData[userID][i]), "0", i+1, "AL", false, 0, "")
 	}
-	log.Info(pdf.OutputFileAndClose(filename))
+	log.Info(pdf.OutputFileAndClose("pdfLogs/" + filename))
 }
 
 func inactivityStopWatch(userID common.UserID) {
