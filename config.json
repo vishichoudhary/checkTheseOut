@@ -1,0 +1,14 @@
+{
+    "configurations": {
+        "service":{
+            "api_version":"v1",
+            "port": 8080
+        },
+        "functional": {
+            "inactivityTimeInSec": 5
+        },
+        "logging": {
+            "level": "INFO"
+        }
+    }
+}
