@@ -1,8 +1,9 @@
 package common
 
 type Question string
+type UserID string
 
 type RequestFormat struct {
-	UserID    string     `json:"UserID"`
+	UserID    UserID     `json:"UserID"`
 	Questions []Question `json:"Questions"`
 }
