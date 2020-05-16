@@ -41,7 +41,7 @@ func toPdf(userID common.UserID) {
 }
 
 func inactivityStopWatch(userID common.UserID) {
-	var timeout = time.Duration(conf.Functional.InactivityTimeInSec) * time.Second
+	var timeout = time.Duration(conf.Functional.InactivityTimeInSec) * time.Minute
 	var timer = time.NewTimer(timeout)
 	var resetTimer = sessions[userID]
 

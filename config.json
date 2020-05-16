@@ -5,7 +5,7 @@
             "port": 8080
         },
         "functional": {
-            "inactivityTimeInSec": 1
+            "inactivityTimeInSec": 5
         },
         "logging": {
             "level": "INFO"
