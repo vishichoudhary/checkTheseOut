@@ -51,6 +51,7 @@ func inactivityStopWatch(userID common.UserID) {
 		case <-resetTimer:
 			log.Info("Timer of user ", userID, " has been reset")
 			timer.Reset(timeout)
+
 		case <-timer.C:
 			alive = false
 			delete(sessions, userID)
